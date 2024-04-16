@@ -28,6 +28,8 @@ describe("StakingContract", function (){
       expect(await staking.rewardRate()).to.equal(11600000000000);
     })
 
+
+    test()
   })
 
 })
