@@ -1,0 +1,26 @@
+{
+  "name": "ostake",
+  "version": "1.0.0",
+  "description": "Ostake is a Defi Staking Protocol where users can stake their token for a period of time and earns rewards",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Defi",
+    "Crypto",
+    "staking",
+    "solidity"
+  ],
+  "author": "Abraham (Mr.Grade)",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "hardhat": "^2.22.2"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
+  }
+}
