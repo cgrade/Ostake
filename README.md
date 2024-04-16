@@ -1,13 +1,10 @@
-# Sample Hardhat Project
+# OSTAKE Documentation
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
-Try running some of the following tasks:
+Ostake is a DeFi Staking Protocol that rewards users for staking their token.
 
 ```shell
-npx hardhat help
+git clone https://github.com/cgrade/Ostake
+cd Ostake
+npm i
 npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
