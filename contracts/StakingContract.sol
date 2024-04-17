@@ -6,7 +6,7 @@ pragma solidity ^0.8.24;
     it defines the staking logic and every available functions and events.
 */
 // Uncomment this line to use console.log
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 
@@ -37,5 +37,14 @@ contract StakingContract {
         token = token_;
         
     }
+    
+    function trf() public{
+        _trf();
+    }
+    
+    function _trf() internal {
+        token.safeTransferFrom(msg.sender, address(this), 500000000);
+    }
+
 
 }

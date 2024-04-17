@@ -3,8 +3,7 @@ const {ethers} = require('hardhat');
 
 describe("StakingContract", function (){
   this.beforeEach(async () => {
-    tokenAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-    Token = await ethers.getContractFactory("Token");
+    Token = await ethers.getContractFactory("Ostake");
     Staking = await ethers.getContractFactory("StakingContract");
 
     token = await Token.deploy();
@@ -15,7 +14,7 @@ describe("StakingContract", function (){
 
     // Check if token is present
     it("should check if token is in the contract", async function(){
-      expect(await staking.token()).to.equal(tokenAddress);
+      expect(await staking.token()).to.equal(await token.getAddress());
     })
 
     // Check if totalStaked is 0
@@ -28,8 +27,13 @@ describe("StakingContract", function (){
       expect(await staking.rewardRate()).to.equal(11600000000000);
     })
 
+    // Check if it returns balance
+    it("OST Token in the Staking Contract should be: 500,000,000", async function(){
+      await token.approve(await staking.getAddress(), 600000000);
+      await staking.trf();
+      expect(await token.balanceOf(staking.getAddress())).to.equal(500000000);
+    })
 
-    test()
   })
 
 })
