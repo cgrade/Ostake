@@ -8,6 +8,8 @@ describe("StakingContract", function (){
 
     token = await Token.deploy();
     staking = await Staking.deploy(await token.getAddress());
+
+    await token.approve(await staking.getAddress(), ethers.parseEther('50000000'));
   });
 
   describe("Deployment", function(){
@@ -28,10 +30,22 @@ describe("StakingContract", function (){
     })
 
     // Check if it returns balance
-    it("OST Token in the Staking Contract should be: 500,000,000", async function(){
-      await token.approve(await staking.getAddress(), 600000000);
+    it("OST Token in the Staking Contract should be: 50,000,000", async function(){
       await staking.trf();
-      expect(await token.balanceOf(staking.getAddress())).to.equal(500000000);
+      expect(await token.balanceOf(staking.getAddress())).to.equal(ethers.parseEther('50000000'));
+
+    })
+
+    it("TotalStaked Balance should increment by staking amount", async function(){
+      await staking.stake(ethers.parseEther('2000'));
+      await staking.stake(ethers.parseEther('2000'));
+
+    })
+
+    it("staker should be added to Positions mapping", async function(){
+      await staking.stake(ethers.parseEther('2000'));
+      await staking.stake(ethers.parseEther('2000'));
+
     })
 
   })
