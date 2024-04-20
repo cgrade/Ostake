@@ -17,7 +17,7 @@ contract StakingContract {
     IERC20 public immutable token;
 
     // Defining Variables
-    struct Staker {
+    struct  Staker {
         uint stakedAmount;
         uint stakedTime;
         uint totalRewards;
@@ -26,27 +26,37 @@ contract StakingContract {
     //keep track of staking positions
     mapping(address => Staker) public positions;
 
-    // Reward Rate per Second
+    // Reward Rate per Second in WEI
     uint public immutable rewardRate = 11600000000000;
 
     // total token staked
     uint public totalStaked = 0;
 
-    // rewards
+    // rewards: keep tracks of rewards for stakers
     mapping(address => uint) public rewards;
 
-    // blanceOf
+    // blanceOf : keeps tracks of balance of the stakers
     mapping(address => uint) public balanceOf;
 
-    // userRewardPerTokenPaid
-    mapping(address => uint) public userRewardPertokenPaid;
 
+    // Contract Deployer
+    address owner;
+
+
+    // Constructor
     constructor(IERC20 token_){
         token = token_;
-        
+        owner = msg.sender;
     }
-    
-    function trf() public{
+
+        // modifier
+    modifier onlyOwner{
+        require(owner == msg.sender);
+        _;
+    }
+
+    // Function that deposits 50% of total supply to the staking contract.
+    function trf() public onlyOwner {
         _trf();
     }
     
@@ -62,59 +72,35 @@ contract StakingContract {
         // this allows the transfer of tokens from wallet to be greater than 0
         require(_amount > 0, "Staking Amount must be greater than Zero(0)");
 
-        Staker storage _staker = positions[msg.sender];
-
         (bool success) = token.transferFrom(msg.sender, address(this), _amount);
 
         if (success) {
+            totalStaked += _amount;
+            balanceOf[msg.sender] += _amount;
             // if this is a first stake, set staking time as well as the amount
-            if(_staker.stakedAmount == 0){
-                _staker.stakedTime = block.timestamp;
-                _staker.stakedAmount = _amount;
-                totalStaked += _amount;
-                balanceOf[msg.sender] += _amount;
-            }
+            if(positions[msg.sender].stakedAmount == 0){
+                positions[msg.sender].stakedAmount = _amount;
+                positions[msg.sender]. stakedTime = block.timestamp;
 
-            // If this is not first stake, we update the stakedAmount
-            else {
+            } else {
                 // Increase stakedAmount
-                _staker.stakedAmount += _amount;
-                totalStaked += _amount;
-                balanceOf[msg.sender] += _amount;
-                calculateAccuredReward();
+                positions[msg.sender].stakedAmount += _amount;
             }
-        } else {
-            revert();
         }
+        // update Rewards earned.
+        calculateAccuredReward();
         
-        // Update total staked and Balance of staker
-     
-        // // Reward per token 
-        // uint diff = block.timestamp - _staker.stakedTime;
-        // uint reward = 0;
-        // uint tok = (rewardRate / totalStaked) * (diff);
-        // reward += tok;
-
-        // // calculate reward earnd by user
-        // rewards[msg.sender] += balanceOf[msg.sender] * (reward - userRewardPertokenPaid[msg.sender]);
-
-        // // update user reward per token paid
-        // userRewardPertokenPaid[msg.sender] = reward;
-        
-        // positions[msg.sender].totalRewards += rewards[msg.sender];
     }
     
-
-    function calculateAccuredReward() internal { 
-        Staker storage _staker = positions[msg.sender];
-        uint difference = block.timestamp - _staker.stakedTime;
+    // Function to Calculate Accurued Rewards
+    function calculateAccuredReward() public { 
+        uint difference = (block.timestamp - positions[msg.sender].stakedTime);
       
-        //formula to calculate your reward of 10% of staked token and then returns the percent in reward tokens after one hour
-        _staker.totalRewards += _staker.stakedAmount * ( rewardRate / totalStaked) * (difference);
-        rewards[msg.sender] = _staker.totalRewards;
-        console.log(_staker.totalRewards);
-      }
-
+        //formula to calculate your reward earned
+       uint reward =  ( rewardRate * balanceOf[msg.sender] * difference)/  (totalStaked) ;
+       rewards[msg.sender] +=  reward;
+       positions[msg.sender].totalRewards += rewards[msg.sender];
+    }
 
 
     function getRewards() external view returns (uint){
@@ -123,10 +109,6 @@ contract StakingContract {
 
     function getBalanceStaked() public view returns (uint){
         return balanceOf[msg.sender];
-    }
-
-    function getRetunrPTK() public view returns (uint) {
-        return userRewardPertokenPaid[msg.sender];
     }
 
 }

@@ -39,12 +39,8 @@ describe("StakingContract", function (){
     it("TotalStaked Balance should increment by staking amount", async function(){
       await staking.stake(ethers.parseEther('2000'));
       await staking.stake(ethers.parseEther('2000'));
-
-    })
-
-    it("staker should be added to Positions mapping", async function(){
-      await staking.stake(ethers.parseEther('2000'));
-      await staking.stake(ethers.parseEther('2000'));
+      console.log('balance stakded', ethers.formatUnits(await staking.getBalanceStaked()))
+      console.log('rewards', ethers.formatUnits(await staking.getRewards()));
 
     })
 
