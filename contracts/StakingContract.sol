@@ -32,6 +32,9 @@ contract StakingContract {
     // total token staked
     uint public totalStaked = 0;
 
+    // Reward pool
+  
+
     // rewards: keep tracks of rewards for stakers
     mapping(address => uint) public rewards;
 
@@ -91,6 +94,49 @@ contract StakingContract {
         calculateAccuredReward();
         
     }
+
+    function unstake(uint _amount) external {
+
+        //check if their's a position for this user
+        require(positions[msg.sender].stakedAmount > 0, 'You must stake first before you can unstake');
+
+        // check if user has enough balance to withdraw
+        require(balanceOf[msg.sender] > _amount, 'this amount is more than the staked amojnt');
+
+        // calculate Reeward accured
+        calculateAccuredReward();
+
+        // Initiate the withdrawal (from SC to EOA)
+        token.transfer( msg.sender, _amount);
+
+        // update balances [balanceOf, positions, totalStaked]
+        balanceOf[msg.sender] -= _amount;
+        positions[msg.sender].stakedAmount -= _amount;
+        totalStaked -= _amount;
+
+    }
+
+    function claimRewards() public {
+        // Must be a Staker [poistions]
+        require(positions[msg.sender].stakedAmount > 0, "You are not a Staker");
+
+        // Calculate Accured Rewards
+        calculateAccuredReward();
+
+        // check if there's any rewards
+        require (positions[msg.sender].totalRewards > 1, 'Minimum to Claim is 1 OST tokens');
+
+        // Deduct from the reward pool and send to EOA
+        token.transfer(msg.sender, positions[msg.sender].totalRewards);
+
+        // Update Values [positions.rewards]
+        positions[msg.sender].totalRewards = 0;
+        rewards[msg.sender] = 0;
+    }
+
+
+    /*---------------------HELPER FUNCTIONS ---------------------- */
+
     
     // Function to Calculate Accurued Rewards
     function calculateAccuredReward() public { 
@@ -102,13 +148,15 @@ contract StakingContract {
        positions[msg.sender].totalRewards += rewards[msg.sender];
     }
 
-
+    // Get the Rewards earned by user
     function getRewards() external view returns (uint){
         return rewards[msg.sender];
     }
 
+    // Get the amount staked by the user
     function getBalanceStaked() public view returns (uint){
         return balanceOf[msg.sender];
     }
+
 
 }
