@@ -32,7 +32,8 @@ contract StakingContract {
     // total token staked
     uint public totalStaked = 0;
 
-    // Reward pool
+    // EVENTS
+    event Stake(address _address, uint _amount);
   
 
     // rewards: keep tracks of rewards for stakers
@@ -92,6 +93,9 @@ contract StakingContract {
         }
         // update Rewards earned.
         calculateAccuredReward();
+
+        // emit the stake event
+        emit Stake(msg.sender, _amount);
         
     }
 
