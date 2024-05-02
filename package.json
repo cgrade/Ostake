@@ -1,26 +1,46 @@
 {
   "name": "ostake",
-  "version": "1.0.0",
+  "private": true,
   "description": "Ostake is a Defi Staking Protocol where users can stake their token for a period of time and earns rewards",
+  "version": "1.0.0",
+
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
+  "author": "Abraham (Mr.Grade)",
+  "license": "ISC",
   "keywords": [
     "Defi",
     "Crypto",
     "staking",
     "solidity"
   ],
-  "author": "Abraham (Mr.Grade)",
-  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "@web3modal/ethers": "^4.1.11",
+    "ethers": "^6.12.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "regenerator-runtime": "^0.14.1"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
     "dotenv": "^16.4.5",
-    "ethers": "^6.11.1",
-    "hardhat": "^2.22.3"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "^5.0.2"
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "hardhat": "^2.22.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.0"
   }
 }
