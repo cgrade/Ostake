@@ -1,3 +1,5 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+
 const NavBar = () => {
   return (
     <>
@@ -22,8 +24,8 @@ const NavBar = () => {
           </a>
 
           {/* connect Wallet button */}
-          <div className="bg-semi-dark px-10 py-3 rounded-full text-white">
-            <w3m-connect-button />
+          <div>
+            <ConnectButton showBalance={false} chainStatus={"name"} />
           </div>
         </div>
       </section>

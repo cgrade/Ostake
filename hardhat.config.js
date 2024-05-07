@@ -5,9 +5,12 @@ require('dotenv').config();
 module.exports = {
   solidity: "0.8.24",
   networks: {
-    sepolia: {
-      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.API}`,
+    holesky: {
+      url: `https://ethereum-holesky-rpc.publicnode.com`,
       accounts: [process.env.PRIVATE_KEY],
     }
+  },
+  etherscan: {
+    apiKey: process.env.ETHERSCAN_API
   }
 };

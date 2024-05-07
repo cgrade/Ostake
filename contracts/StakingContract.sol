@@ -32,8 +32,10 @@ contract StakingContract {
     // total token staked
     uint public totalStaked = 0;
 
-    // EVENTS
-    event Stake(address _address, uint _amount);
+    // =============--------EVENTS
+    event Stake(address indexed _address, uint _amount);
+    event Unstake(address indexed _address, uint _amount);
+    event RewardsClaimed(address indexed _address, uint _amount);
   
 
     // rewards: keep tracks of rewards for stakers
@@ -113,6 +115,9 @@ contract StakingContract {
         // Initiate the withdrawal (from SC to EOA)
         token.transfer( msg.sender, _amount);
 
+        // emit unstake event
+        emit Unstake(msg.sender, _amount);
+
         // update balances [balanceOf, positions, totalStaked]
         balanceOf[msg.sender] -= _amount;
         positions[msg.sender].stakedAmount -= _amount;
@@ -133,9 +138,13 @@ contract StakingContract {
         // Deduct from the reward pool and send to EOA
         token.transfer(msg.sender, positions[msg.sender].totalRewards);
 
+        // emit the event
+        emit RewardsClaimed(msg.sender, positions[msg.sender].totalRewards);
+
         // Update Values [positions.rewards]
         positions[msg.sender].totalRewards = 0;
         rewards[msg.sender] = 0;
+ 
     }
 
 

@@ -1,9 +1,10 @@
+import { useState } from "react";
 import Button from "./Button";
 
 const StakingModal = () => {
   return (
     <>
-      <section className="flex flex-col drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
+      <section className="flex flex-col w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
         <div className="py-5 font-yara text-bright font-extrabold text-2xl ">
           STAKE YOUR OST
         </div>
