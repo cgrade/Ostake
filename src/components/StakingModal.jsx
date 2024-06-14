@@ -56,7 +56,7 @@ const StakingModal = () => {
 
     // wait for allowance to be updated
     if (stakeAmount > allow.data) {
-      await delay(10000);
+      await delay(14000);
     }
 
     // check if the allowance is sufficient
