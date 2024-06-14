@@ -5,8 +5,9 @@ import "tailwindcss/tailwind.css";
 import NavBar from "./sections/NavBar";
 import Hero from "./sections/Hero";
 import { Footer } from "./components/Footer";
-import { SendTransaction } from "./components/sendTransaction";
+import { Faucet } from "./components/Faucet";
 import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (

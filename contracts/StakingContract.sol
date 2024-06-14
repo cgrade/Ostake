@@ -61,14 +61,22 @@ contract StakingContract {
         _;
     }
 
+    // Approve Token
+    function approveToken(uint256 amount) public {
+        token.approve(address(this), amount);
+    }
+
     // Function that deposits 50% of total supply to the staking contract.
     function trf() public onlyOwner {
         _trf();
     }
     
     function _trf() internal {
+        approveToken(50000000 * 10 ** 18);
         token.safeTransferFrom(msg.sender, address(this), 50000000 * 10 ** 18 );
     }
+
+
 
     // STAKE FUNCTIONS
 
@@ -78,21 +86,23 @@ contract StakingContract {
         // this allows the transfer of tokens from wallet to be greater than 0
         require(_amount > 0, "Staking Amount must be greater than Zero(0)");
 
-        (bool success) = token.transferFrom(msg.sender, address(this), _amount);
+        approveToken(_amount);
 
-        if (success) {
-            totalStaked += _amount;
-            balanceOf[msg.sender] += _amount;
-            // if this is a first stake, set staking time as well as the amount
-            if(positions[msg.sender].stakedAmount == 0){
-                positions[msg.sender].stakedAmount = _amount;
-                positions[msg.sender]. stakedTime = block.timestamp;
+        token.safeTransferFrom( msg.sender, address(this), _amount);
 
-            } else {
-                // Increase stakedAmount
-                positions[msg.sender].stakedAmount += _amount;
-            }
+        totalStaked += _amount;
+        balanceOf[msg.sender] += _amount;
+
+        // if this is a first stake, set staking time as well as the amount
+        if(positions[msg.sender].stakedAmount == 0){
+            positions[msg.sender].stakedAmount = _amount;
+            positions[msg.sender]. stakedTime = block.timestamp;
+
+        } else {
+            // Increase stakedAmount
+            positions[msg.sender].stakedAmount += _amount;
         }
+
         // update Rewards earned.
         calculateAccuredReward();
 
@@ -113,6 +123,7 @@ contract StakingContract {
         calculateAccuredReward();
 
         // Initiate the withdrawal (from SC to EOA)
+
         token.transfer( msg.sender, _amount);
 
         // emit unstake event

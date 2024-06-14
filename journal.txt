@@ -1,5 +1,5 @@
-OST Token Contract Address: 0x3aeC80ef3Cd959d694bA11D36fe5116359383FFa
-
+OST Token Contract Address: 0x4908B2f2390013ed2652407eC080F5EA536AfA90
+Stakin Contract Address: 0x6B4945eDA00a33ba20B2D88fd18f565C11259e5a
 
 // SET CHAINS:
 const testNet = {

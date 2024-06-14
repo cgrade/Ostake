@@ -16,7 +16,7 @@ describe("StakingContract", function (){
 
     // Check if token is present
     it("should check if token is in the contract", async function(){
-      // expect(await staking.token()).to.equal(await token.getAddress());
+      expect(await staking.token()).to.equal(await token.getAddress());
     })
 
     // Check if totalStaked is 0
