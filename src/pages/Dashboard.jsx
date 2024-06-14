@@ -82,17 +82,17 @@ const Dashboard = () => {
     <>
       <section>
         <NavBar></NavBar>
-        <div className="container px-6 py-10 mx-auto justif">
-          <h1 className="flex justify-center text-3xl font-semibold text-gray-800 capitalize lg:text-3xl font-yara">
+        <div className="container px-6 py-10 mx-auto justify-center md:px-3 md:py-5">
+          <h1 className="text-3xl font-semibold text-gray-800 capitalize lg:text-3xl font-yara text-center md:text-xl">
             Dashboard
           </h1>
 
-          <p className="flex justify-center font-yara text-md mt-4 text-gray-500 xl:mt-6 ">
+          <p className="font-yara text-md mt-4 text-gray-500 xl:mt-6 text-center md:text-sm">
             Explore your dashboards: stake, unstake and claim rewards for all
             your staking
           </p>
 
-          <div className="grid grid-col-2 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-3">
             {/* ==========Metric Card=================> */}
             <div className="flex flex-col p-8 space-y-3 rounded-2xl drop-shadow bg-gradient-to-r from-semi-dark justify border border-r-bright">
               <div className=" flex text-blue-500 dark:text-blue-4 justify-center">

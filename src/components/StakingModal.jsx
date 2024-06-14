@@ -65,7 +65,7 @@ const StakingModal = () => {
   };
   return (
     <>
-      <section className="flex flex-col w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
+      <section className="flex flex-col w-80 sm:w-96 md:w-96  drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
         <div className="py-5 font-yara text-bright font-extrabold text-2xl ">
           STAKE YOUR OST
         </div>
@@ -75,19 +75,20 @@ const StakingModal = () => {
               <div>
                 <input
                   ref={amountRef}
-                  className="w-80 h-16 bg-dark -mr-2 rounded-xl bg-opacity-30 p-4 font-bold text-xl placeholder:text-dark z-0 text-white"
+                  className="w-60 md:w-80 sm:w-80 h-16 bg-dark mr-2 rounded-xl bg-opacity-30 p-4 font-bold text-xl placeholder:text-dark z-0 text-white"
                   type="text"
                   placeholder="0.0"
                   name="amount"
                 />
               </div>
-              <div className="flex border w-12 -ml-14 z-10 px-1 bg-dark bg-opacity-50">
+              <div className="flex w-11 rounded-md -ml-14 z-10 px-1 bg-dark bg-opacity-50">
                 MAX
               </div>
             </label>
 
             <p className="text-xs mt-1">
-              Your Balance:{data ? formatEther(data.value.toString()) : null}
+              Your Balance:
+              {data ? parseFloat(formatEther(data.value)).toFixed(3) : null}
             </p>
             <div className="flex flex-row justify-between mt-14 font-bold text-bright">
               <p>Staking APR</p>

@@ -92,7 +92,7 @@ const UnstakePage = () => {
     <div className="grid grid-cols-1">
       <NavBar></NavBar>
       <div className="flex justify-center mt-10">
-        <section className="flex flex-col  w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
+        <section className="flex flex-col  w-80 sm:w-96 md:w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
           <h1 className="flex justify-center mt-4 text-2xl font-yara text-bright">
             Unstake your Tokens
           </h1>
@@ -102,7 +102,7 @@ const UnstakePage = () => {
                 <div>
                   <input
                     ref={amountRef}
-                    className="w-80 h-16 bg-dark -mr-2 rounded-xl bg-opacity-30 p-4  text-sm placeholder:text-dark z-0 text-white"
+                    className="w-60 md:w-80 sm:w-80 h-16 bg-dark -mr-2 rounded-xl bg-opacity-30 p-4  text-sm placeholder:text-dark z-0 text-white"
                     type="text"
                     placeholder="Amount to unstake"
                     name="amount"
