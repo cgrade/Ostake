@@ -13,6 +13,7 @@ import { WagmiProvider, http } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { holesky } from "wagmi/chains";
 import UnstakePage from "./pages/UnstakePage.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 
 /* --------------------RAINBOW KIT CONFIGURATION------------------*/
 
@@ -32,7 +33,7 @@ const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/app",
     element: <App />,
   },
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/unstake",
     element: <UnstakePage />,
+  },
+  {
+    path: "/",
+    element: <LandingPage />,
   },
 ]);
 

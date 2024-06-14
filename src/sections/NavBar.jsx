@@ -15,7 +15,7 @@ const NavBar = () => {
           <div className="flex justify-between gap-4 items-center">
             {/* Logo */}
             <div className="mx-2 sm:mx-5 mr-40 sm:mr-0">
-              <Link to="/">
+              <Link to="/app">
                 <p className="text-3xl sm:text-5xl font-logo font-extrabold text-semi-dark">
                   <span className="text-bright  ">OS</span>
                   take
