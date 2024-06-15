@@ -102,7 +102,7 @@ const StakingModal = () => {
             </p>
             <div className="flex flex-row justify-between mt-14 font-bold text-bright">
               <p>Staking APR</p>
-              <p>10%/hr</p>
+              <p>10% per hr</p>
             </div>
             <div
               className="flex justify-center border border-bright 
