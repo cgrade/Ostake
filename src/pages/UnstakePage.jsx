@@ -83,7 +83,7 @@ const UnstakePage = () => {
       toast.error("Try Again: Unstaking Failed");
     }
   };
-  toast.success("testing");
+
   // handle unstake button
   const handleUnstake = async (event) => {
     event.preventDefault();
