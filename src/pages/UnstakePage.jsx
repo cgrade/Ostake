@@ -1,5 +1,7 @@
 import React from "react";
 import NavBar from "../sections/NavBar";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Wagmi Imports
 import { useRef, useState, useEffect } from "react";
@@ -75,12 +77,13 @@ const UnstakePage = () => {
         address: stakeData.ca,
         chainId: holesky.id,
       });
-      alert(`${amount} unstaked Successfully`);
+
+      toast.success(` $OST Unstaked Successfully`);
     } catch (err) {
-      alert(err);
+      toast.error("Try Again: Unstaking Failed");
     }
   };
-
+  toast.success("testing");
   // handle unstake button
   const handleUnstake = async (event) => {
     event.preventDefault();
@@ -91,8 +94,15 @@ const UnstakePage = () => {
   return (
     <div className="grid grid-cols-1">
       <NavBar></NavBar>
-      <div className="flex justify-center mt-10">
-        <section className="flex flex-col  w-80 sm:w-96 md:w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
+      <p className="flex flex-1 justify-center font-bold text-3xl pt-10 font-yara text-bright">
+        Unstake
+      </p>
+      <p className="flex flex-1 justify-center text-xl mt-10  text-dark items-center px-20">
+        Welcome to the unstake page, kindly set the amount you want to unstake
+        and click the "unstakes" button to proceed
+      </p>
+      <div className="flex justify-center mt-20">
+        <section className="flex flex-col  p-8 w-80 sm:w-96 md:w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
           <h1 className="flex justify-center mt-4 text-2xl font-yara text-bright">
             Unstake your Tokens
           </h1>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../sections/NavBar";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // wagmi imports
 import { useReadContract, useAccount, useWriteContract } from "wagmi";
@@ -18,6 +20,7 @@ import { Footer } from "../components/Footer";
 
 const Dashboard = () => {
   // Hooks
+  const [isLoading, setIsLoading] = useState(false);
   const { isConnected, address } = useAccount();
   const [reward, setReward] = useState(0);
   const [staked, setStaked] = useState(0);
@@ -66,6 +69,7 @@ const Dashboard = () => {
 
   // Claim reward Handler
   const claimReward = async () => {
+    setIsLoading(true);
     try {
       const data = await writeContractAsync({
         abi: stakeData.abi,
@@ -73,9 +77,11 @@ const Dashboard = () => {
         functionName: "claimRewards",
         chainId: holesky.id,
       });
+      toast.success("Rewards claimed successfully");
     } catch (err) {
-      alert(err);
+      toast.error(`Error claiming rewards: ${err}`);
     }
+    setIsLoading(false);
   };
 
   return (

@@ -1,16 +1,22 @@
 import { useRef, useState } from "react";
 import { tokenData, stakeData } from "../context/context";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+// wagmi imports
 import {
   useAccount,
   useBalance,
   useReadContract,
   useWriteContract,
 } from "wagmi";
+
+// ethers imports
 import { formatEther, parseEther } from "ethers";
 import { holesky } from "wagmi/chains";
 
 const StakingModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { isConnected, address } = useAccount();
   const { data } = useBalance({ address: address, token: tokenData.ca });
   const { writeContractAsync } = useWriteContract();
@@ -25,6 +31,7 @@ const StakingModal = () => {
   });
 
   const stake = async (amount) => {
+    setIsLoading(true);
     try {
       await writeContractAsync({
         abi: stakeData.abi,
@@ -33,10 +40,11 @@ const StakingModal = () => {
         address: stakeData.ca,
         chainId: holesky.id,
       });
-      alert("Staked Successfully");
+      toast.success(`${formatEther(amount)} $OST Staked Successfully`);
     } catch (err) {
-      alert(err);
+      toast.error("Try Again: Allowance not updated");
     }
+    setIsLoading(false);
   };
 
   const handlApproveAndStake = async (event) => {
@@ -56,7 +64,9 @@ const StakingModal = () => {
 
     // wait for allowance to be updated
     if (stakeAmount > allow.data) {
-      await delay(14000);
+      await delay(13000);
+    } else {
+      stake(stakeAmount);
     }
 
     // check if the allowance is sufficient
@@ -92,7 +102,7 @@ const StakingModal = () => {
             </p>
             <div className="flex flex-row justify-between mt-14 font-bold text-bright">
               <p>Staking APR</p>
-              <p>10%</p>
+              <p>10%/hr</p>
             </div>
             <div
               className="flex justify-center border border-bright 

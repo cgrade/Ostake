@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import Dashboard from "./pages/Dashboard.jsx";
+import { ToastContainer } from "react-toastify";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 

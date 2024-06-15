@@ -60,7 +60,7 @@ const NavBar = () => {
 
             {/* connect Wallet button */}
             <div className="mt-2 sm:mt-0 w-full sm:w-auto">
-              <ConnectButton showBalance={false} chainStatus={"name"} />
+              <ConnectButton showBalance={true} chainStatus={"name"} />
             </div>
           </div>
         </div>
