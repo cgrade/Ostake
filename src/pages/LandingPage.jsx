@@ -40,7 +40,7 @@ const LandingPage = () => {
             Why Ostake?
           </h2>
           <p className="text-lg text-left mb-8 p-2">
-            <ul>
+            <ul className="mt-2">
               <li>
                 Effortless Staking: Stake your OST tokens with just a few
                 clicks.
