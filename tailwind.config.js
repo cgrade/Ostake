@@ -9,7 +9,7 @@
       './src/**/*.jsx',
  
     ],
-     darkMode: false, // or 'media' or 'class'
+     darkMode: media, // or 'media' or 'class'
      theme: {
       colors: {
         'bright': '#f35600',
