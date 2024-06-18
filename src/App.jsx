@@ -11,24 +11,26 @@ import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 
 function App() {
   return (
-    <RainbowKitProvider
-      theme={darkTheme({
-        accentColor: "#a3c3ae",
-        accentColorForeground: "black",
-        borderRadius: "large",
-      })}
-    >
+    <>
       <ToastContainer />
-      <section grid grid-col>
-        <header>
-          <NavBar />
-        </header>
-        <section className="w-full flex justify-between">
-          <Hero />
+      <RainbowKitProvider
+        theme={darkTheme({
+          accentColor: "#a3c3ae",
+          accentColorForeground: "black",
+          borderRadius: "large",
+        })}
+      >
+        <section grid grid-col>
+          <header>
+            <NavBar />
+          </header>
+          <section className="w-full flex justify-between">
+            <Hero />
+          </section>
+          <Footer />
         </section>
-        <Footer />
-      </section>
-    </RainbowKitProvider>
+      </RainbowKitProvider>
+    </>
   );
 }
 

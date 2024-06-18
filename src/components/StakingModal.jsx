@@ -20,6 +20,7 @@ const StakingModal = () => {
   const { isConnected, address } = useAccount();
   const { data } = useBalance({ address: address, token: tokenData.ca });
   const { writeContractAsync } = useWriteContract();
+  const [amount, setAmount] = useState("");
 
   const amountRef = useRef(null);
   const allow = useReadContract({
@@ -73,6 +74,15 @@ const StakingModal = () => {
     await allow.refetch();
     stake(stakeAmount);
   };
+
+  const handleAmountChange = (e) => {
+    const newValue = e.target.value;
+    // Regular expression to allow only numeric input (including decimal points)
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setAmount(newValue);
+    }
+  };
+
   return (
     <>
       <section className="flex flex-col w-80 sm:w-96 md:w-96  drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
@@ -89,6 +99,8 @@ const StakingModal = () => {
                   type="text"
                   placeholder="0.0"
                   name="amount"
+                  value={amount}
+                  onChange={handleAmountChange}
                 />
               </div>
               <div className="flex w-11 rounded-md -ml-14 z-10 px-1 bg-dark bg-opacity-50">

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
 
 const NavBar = () => {
-  const account = useAccount();
+  const { isConnected } = useAccount();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,51 +17,62 @@ const NavBar = () => {
             <div className="mx-2 sm:mx-5 mr-40 sm:mr-0">
               <Link to="/app">
                 <p className="text-3xl sm:text-5xl font-logo font-extrabold text-semi-dark">
-                  <span className="text-bright  ">OS</span>
-                  take
+                  <span className="text-bright">OS</span>take
                 </p>
               </Link>
             </div>
 
-            {/* Hamburger menu */}
-            <div className="sm:hidden">
-              <button onClick={() => setIsOpen(!isOpen)}>
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  className="w-6 h-6"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 6a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm1 5a1 1 0 100 2h12a1 1 0 100-2H4z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
+            {/* Conditionally render Hamburger menu or Connect Wallet button */}
+            {isConnected ? (
+              // Hamburger menu for when the wallet is connected
+              <div className="sm:hidden">
+                <button onClick={() => setIsOpen(!isOpen)}>
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 6a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm1 5a1 1 0 100 2h12a1 1 0 100-2H4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              // Connect Wallet button when not connected
+              <div className="sm:hidden">
+                <ConnectButton chainStatus={"name"} />
+              </div>
+            )}
           </div>
+
+          {/* Dropdown menu content */}
           <div
             className={`${
-              isOpen ? "flex flex-col" : "hidden"
-            } sm:flex sm:flex-row w-full sm:w-auto gap-3`}
+              isOpen ? "flex" : "hidden"
+            } flex-col sm:flex sm:flex-row w-full sm:w-auto gap-3`}
           >
-            {account.isConnected ? (
+            {isConnected && (
               <Link
                 to="/dashboard"
                 className="border px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-semi-dark text-black opacity-55 mt-2 sm:mt-0 w-full sm:w-auto text-center"
               >
                 Dashboard
               </Link>
-            ) : null}
+            )}
 
             <div className="border px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-semi-dark text-black opacity-55 mt-2 sm:mt-0 w-full sm:w-auto text-center">
               <Faucet />
             </div>
 
-            {/* connect Wallet button */}
-            <div className="mt-2 sm:mt-0 w-full sm:w-auto">
-              <ConnectButton chainStatus={"name"} />
-            </div>
+            {/* Show Connect Wallet button only when not connected and in mobile views */}
+            {!isConnected && (
+              <div className="block sm:hidden mt-2 w-full text-center">
+                <ConnectButton chainStatus={"name"} />
+              </div>
+            )}
           </div>
         </div>
       </section>

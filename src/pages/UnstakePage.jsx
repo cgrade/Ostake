@@ -25,6 +25,7 @@ const UnstakePage = () => {
   const amountRef = useRef(null);
   const [reward, setReward] = useState(0);
   const [staked, setStaked] = useState(0);
+  const [amount, setAmount] = useState("");
 
   // Reading contract for Balance Staked
   const totalStaked = useReadContract({
@@ -91,17 +92,26 @@ const UnstakePage = () => {
     unStake(unStakeAmount);
   };
 
+  // handle form validation
+  const handleAmountChange = (e) => {
+    const newValue = e.target.value;
+    // regular expression to allow only numeric input (including decimal points)
+    if (/^\d*\.?\d*$/.test(newValue)) {
+      setAmount(newValue);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1">
       <NavBar></NavBar>
       <p className="flex flex-1 justify-center font-bold text-3xl pt-10 font-yara text-bright">
         Unstake
       </p>
-      <p className="flex flex-1 justify-center text-xl mt-10  text-dark items-center px-20">
-        Welcome to the unstake page, kindly set the amount you want to unstake
-        and click the "unstakes" button to proceed
+      <p className="flex flex-1 justify-center text-md  text-dark font-bold items-center px-5 mb-7">
+        Set the amount you want to unstake and click the "unstake" button to
+        proceed
       </p>
-      <div className="flex justify-center mt-20">
+      <div className="flex justify-center">
         <section className="flex flex-col  p-8 w-80 sm:w-96 md:w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
           <h1 className="flex justify-center mt-4 text-2xl font-yara text-bright">
             Unstake your Tokens
@@ -114,8 +124,10 @@ const UnstakePage = () => {
                     ref={amountRef}
                     className="w-60 md:w-80 sm:w-80 h-16 bg-dark -mr-2 rounded-xl bg-opacity-30 p-4  text-sm placeholder:text-dark z-0 text-white"
                     type="text"
-                    placeholder="Amount to unstake"
+                    placeholder="0.0"
                     name="amount"
+                    value={amount} // Controlled input
+                    onChange={handleAmountChange}
                   />
                 </div>
                 <div className="flex border rounded w-12 -ml-14 z-10 px-1 bg-dark bg-opacity-20">
