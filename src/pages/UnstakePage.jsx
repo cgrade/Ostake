@@ -78,7 +78,6 @@ const UnstakePage = () => {
         address: stakeData.ca,
         chainId: holesky.id,
       });
-
       toast.success(` $OST Unstaked Successfully`);
     } catch (err) {
       toast.error("Try Again: Unstaking Failed");

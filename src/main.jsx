@@ -53,6 +53,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
+    {" "}
+    <ToastContainer />
     <React.StrictMode>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
@@ -62,6 +64,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </QueryClientProvider>
       </WagmiProvider>
     </React.StrictMode>
-    <ToastContainer />
   </>
 );

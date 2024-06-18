@@ -12,7 +12,6 @@ import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 function App() {
   return (
     <>
-      <ToastContainer />
       <RainbowKitProvider
         theme={darkTheme({
           accentColor: "#a3c3ae",

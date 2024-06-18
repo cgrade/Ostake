@@ -1,6 +1,7 @@
 import { useWriteContract } from "wagmi";
 import { tokenData } from "../context/context";
 import { holesky } from "wagmi/chains";
+import { toast } from "react-toastify";
 
 export function Faucet() {
   const { writeContractAsync } = useWriteContract();
@@ -13,8 +14,9 @@ export function Faucet() {
         functionName: "faucet",
         chainId: holesky.id,
       });
+      toast.success("Claimed 20 OST tokens, come back again in 1hr");
     } catch (err) {
-      alert(err);
+      toast.error(`Wait 1 hr before claiming again`);
     }
   };
 

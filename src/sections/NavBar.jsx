@@ -41,10 +41,7 @@ const NavBar = () => {
                 </button>
               </div>
             ) : (
-              // Connect Wallet button when not connected
-              <div className="sm:hidden">
-                <ConnectButton chainStatus={"name"} />
-              </div>
+              ""
             )}
           </div>
 
@@ -54,26 +51,33 @@ const NavBar = () => {
               isOpen ? "flex" : "hidden"
             } flex-col sm:flex sm:flex-row w-full sm:w-auto gap-3`}
           >
-            {isConnected && (
-              <Link
-                to="/dashboard"
-                className="border px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-semi-dark text-black opacity-55 mt-2 sm:mt-0 w-full sm:w-auto text-center"
-              >
-                Dashboard
-              </Link>
-            )}
-
             <div className="border px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-semi-dark text-black opacity-55 mt-2 sm:mt-0 w-full sm:w-auto text-center">
               <Faucet />
             </div>
+            {isConnected ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="border px-2 py-1 sm:px-4 sm:py-2 rounded-lg bg-semi-dark text-black opacity-55 mt-2 sm:mt-0 w-full sm:w-auto text-center"
+                >
+                  Dashboard
+                </Link>
+                <ConnectButton chainStatus={"name"} />
+              </>
+            ) : (
+              <div>
+                <ConnectButton chainStatus={"name"} />
+              </div>
+            )}
 
-            {/* Show Connect Wallet button only when not connected and in mobile views */}
+            {/* Show Connect Wallet button only when not connected and in mobile views
             {!isConnected && (
               <div className="block sm:hidden mt-2 w-full text-center">
                 <ConnectButton chainStatus={"name"} />
               </div>
-            )}
+            )} */}
           </div>
+          {/* {!isConnected && <ConnectButton chainStatus={"name"} />} */}
         </div>
       </section>
     </>
