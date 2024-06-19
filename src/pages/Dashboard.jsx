@@ -4,7 +4,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // wagmi imports
-import { useReadContract, useAccount, useWriteContract } from "wagmi";
+import {
+  useReadContract,
+  useAccount,
+  useWriteContract,
+  useBalance,
+} from "wagmi";
 import { stakeData } from "../context/context";
 import { holesky } from "wagmi/chains";
 
@@ -17,14 +22,17 @@ import { IoArrowForwardCircle } from "react-icons/io5";
 import { ethers, formatEther, formatUnits } from "ethers";
 import { Link } from "react-router-dom";
 import { Footer } from "../components/Footer";
+import { tokenData } from "../context/context";
 
 const Dashboard = () => {
   // Hooks
+
   const [isLoading, setIsLoading] = useState(false);
   const { isConnected, address } = useAccount();
   const [reward, setReward] = useState(0);
   const [staked, setStaked] = useState(0);
   const { writeContractAsync } = useWriteContract();
+  const { data } = useBalance({ address: address, token: tokenData.ca });
 
   const totalStaked = useReadContract({
     abi: stakeData.abi,
@@ -100,6 +108,32 @@ const Dashboard = () => {
 
           <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-12 md:grid-cols-2 xl:grid-cols-3">
             {/* ==========Metric Card=================> */}
+
+            {/* Stake */}
+            <div className="flex flex-col p-8 space-y-3 rounded-2xl drop-shadow bg-gradient-to-r from-semi-dark justify border border-r-bright">
+              <div className=" flex text-blue-500 dark:text-blue-4 justify-center">
+                <MdAccountBalanceWallet size={70} color="#f35600" />
+              </div>
+              <div className="flex flex-row justify-between text-2xl border border-spacing-1 p-3 rounded drop-shadow-2xl border-dark">
+                {" "}
+                <h1 className="text-xl font-semibold text-gray-700 capitalize dark:text-#154e54">
+                  Total Balance
+                </h1>
+                <p className="text-gray-500 dark:text-gray-300 font-yara text-dark">
+                  {data ? parseFloat(formatEther(data.value)).toFixed(3) : null}
+                </p>
+              </div>
+              <Link
+                className="flex border justify-center rounded-2xl bg-dark drop-shadow-xl font-yara text-2xl inline-flex p-2 
+                text-white capitalize  bg-blue-100 rounded-full  no-underline
+                hover:bg-bright"
+                to="/app"
+              >
+                Stake
+              </Link>
+            </div>
+
+            {/* Unstake */}
             <div className="flex flex-col p-8 space-y-3 rounded-2xl drop-shadow bg-gradient-to-r from-semi-dark justify border border-r-bright">
               <div className=" flex text-blue-500 dark:text-blue-4 justify-center">
                 <MdAccountBalanceWallet size={70} color="#f35600" />
@@ -122,7 +156,7 @@ const Dashboard = () => {
                 Unstake
               </Link>
             </div>
-
+            {/* Rewards */}
             <div className="flex flex-col p-8 space-y-3 rounded-2xl drop-shadow bg-gradient-to-r from-semi-dark border border-r-bright">
               <div className=" flex text-blue-500 dark:text-blue-4 justify-center">
                 <MdOutlineLocalFireDepartment size={70} color="#f35600" />
