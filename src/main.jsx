@@ -9,7 +9,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 //RAINBOW KIT Imports
 import "@rainbow-me/rainbowkit/styles.css";
-import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
+import {
+  RainbowKitProvider,
+  getDefaultConfig,
+  darkTheme,
+} from "@rainbow-me/rainbowkit";
 import { WagmiProvider, http } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { holesky } from "wagmi/chains";
@@ -58,7 +62,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider>
+          <RainbowKitProvider
+            theme={darkTheme({
+              accentColor: "#a3c3ae",
+              accentColorForeground: "black",
+              fontStack: "yara",
+              borderRadius: "small",
+            })}
+          >
             <RouterProvider router={router} />
           </RainbowKitProvider>
         </QueryClientProvider>
