@@ -84,7 +84,12 @@ const StakingModal = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col">
+      <div className="flex justify-center my-5">
+        {" "}
+        <p className="text-3xl font-serif font-extrabold text-dark">Stake</p>
+      </div>
+
       <section className="flex flex-col w-80 sm:w-96 md:w-96  drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
         <div className="py-5 font-yara text-bright font-extrabold text-2xl ">
           STAKE YOUR OST
@@ -126,7 +131,7 @@ const StakingModal = () => {
           </form>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
