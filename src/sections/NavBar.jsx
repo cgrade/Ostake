@@ -25,7 +25,7 @@ const NavBar = () => {
             {/* Always show Connect Wallet button on mobile when not connected */}
             {!isConnected && (
               <div className="sm:hidden">
-                <ConnectButton chainStatus={"name"} />
+                <ConnectButton chainStatus={"icon"} label={"connect"} />
               </div>
             )}
 
@@ -66,12 +66,12 @@ const NavBar = () => {
                 >
                   Dashboard
                 </Link>
-                <ConnectButton chainStatus={"name"} />
+                <ConnectButton chainStatus={"icon"} label={"connect"} />
               </>
             ) : (
               // This ensures ConnectButton is also shown outside the hamburger menu on larger screens when not connected
               <div className="hidden sm:block">
-                <ConnectButton chainStatus={"name"} />
+                <ConnectButton chainStatus={"icon"} label={"connect"} />
               </div>
             )}
           </div>
