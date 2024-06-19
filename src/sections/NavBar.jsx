@@ -22,9 +22,15 @@ const NavBar = () => {
               </Link>
             </div>
 
-            {/* Conditionally render Hamburger menu or Connect Wallet button */}
-            {isConnected ? (
-              // Hamburger menu for when the wallet is connected
+            {/* Always show Connect Wallet button on mobile when not connected */}
+            {!isConnected && (
+              <div className="sm:hidden">
+                <ConnectButton chainStatus={"name"} />
+              </div>
+            )}
+
+            {/* Hamburger menu for when the wallet is connected */}
+            {isConnected && (
               <div className="sm:hidden">
                 <button onClick={() => setIsOpen(!isOpen)}>
                   <svg
@@ -40,8 +46,6 @@ const NavBar = () => {
                   </svg>
                 </button>
               </div>
-            ) : (
-              ""
             )}
           </div>
 
@@ -65,19 +69,12 @@ const NavBar = () => {
                 <ConnectButton chainStatus={"name"} />
               </>
             ) : (
-              <div>
+              // This ensures ConnectButton is also shown outside the hamburger menu on larger screens when not connected
+              <div className="hidden sm:block">
                 <ConnectButton chainStatus={"name"} />
               </div>
             )}
-
-            {/* Show Connect Wallet button only when not connected and in mobile views
-            {!isConnected && (
-              <div className="block sm:hidden mt-2 w-full text-center">
-                <ConnectButton chainStatus={"name"} />
-              </div>
-            )} */}
           </div>
-          {/* {!isConnected && <ConnectButton chainStatus={"name"} />} */}
         </div>
       </section>
     </>
