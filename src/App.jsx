@@ -17,7 +17,7 @@ function App() {
           accentColor: "#a3c3ae",
           accentColorForeground: "black",
           borderRadius: "large",
-        })}
+        })} // Default theme is light
       >
         <section grid grid-col>
           <header>
