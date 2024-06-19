@@ -103,13 +103,10 @@ const UnstakePage = () => {
   return (
     <div className="grid grid-cols-1">
       <NavBar></NavBar>
-      <p className="flex flex-1 justify-center font-bold text-3xl pt-10 font-yara text-bright">
+      <p className="flex flex-1 justify-center text-3xl font-serif font-extrabold my-5 font-yara text-dark">
         Unstake
       </p>
-      <p className="flex flex-1 justify-center text-md  text-dark font-bold items-center px-5 mb-7">
-        Set the amount you want to unstake and click the "unstake" button to
-        proceed
-      </p>
+
       <div className="flex justify-center">
         <section className="flex flex-col  p-8 w-80 sm:w-96 md:w-96 drop-shadow-xl bg-gradient-to-r from-semi-dark rounded-[15px] items-center border border-bright border-opacity-20">
           <h1 className="flex justify-center mt-4 text-2xl font-yara text-bright">
